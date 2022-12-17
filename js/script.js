@@ -1,5 +1,15 @@
 const $area = document.querySelector(".area");
 const $box = document.querySelector(".box");
+
+const $areaWidth = window.innerWidth;
+//console.log(Width);
+const $areaHeight = $area.offsetHeight;
+//console.log(Height);
+const $boxWidth = $box.offsetWidth;
+//console.log($boxWidth);
+const $boxHeight = $box.offsetHeight;
+//console.log($boxWidth);
+
 let action = false;
 let startCoords = {
 	x: 0,
@@ -40,17 +50,19 @@ $area.addEventListener("mousemove", function (e) {
 	if (action) {
 		distance.y = saveCoords.y + e.pageY - startCoords.y;
 		distance.x = saveCoords.x + e.pageX - startCoords.x;
-		if (distance.x > 900) {
-			distance.x = 900;
+		if (distance.x > $areaWidth - $boxWidth) {
+			distance.x = $areaWidth - $boxWidth;
 			move(distance);
 		} else {
 			move(distance);
 		}
-		if (distance.y > 300) {
-			distance.y = 300;
+		if (distance.y > $areaHeight - $boxHeight) {
+			distance.y = $areaHeight - $boxHeight;
 			move(distance);
+			//console.log(distance);
 		} else {
 			move(distance);
+			//console.log(distance);
 		}
 		if (distance.y < 0) {
 			distance.y = 0;
