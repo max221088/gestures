@@ -25,7 +25,7 @@ $box.addEventListener("mousedown", function (e) {
 	action = true;
 	startCoords.x = e.pageX;
 	startCoords.y = e.pageY;
-	console.log(33);
+	//console.log(33);
 });
 
 $area.addEventListener("mouseup", function (e) {
@@ -40,6 +40,29 @@ $area.addEventListener("mousemove", function (e) {
 	if (action) {
 		distance.y = saveCoords.y + e.pageY - startCoords.y;
 		distance.x = saveCoords.x + e.pageX - startCoords.x;
-		move(distance);
+		if (distance.x > 900) {
+			distance.x = 900;
+			move(distance);
+		} else {
+			move(distance);
+		}
+		if (distance.y > 300) {
+			distance.y = 300;
+			move(distance);
+		} else {
+			move(distance);
+		}
+		if (distance.y < 0) {
+			distance.y = 0;
+			move(distance);
+		} else {
+			move(distance);
+		}
+		if (distance.x < 0) {
+			distance.x = 0;
+			move(distance);
+		} else {
+			move(distance);
+		}
 	}
 });
