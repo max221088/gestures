@@ -54,8 +54,8 @@ $area.addEventListener("mouseup", function (e) {
 	//console.log(2);
 
 	action = false;
-	saveCoords.y = distance.y;
-	saveCoords.x = distance.x;
+	//saveCoords.y = distance.y;
+	//saveCoords.x = distance.x;
 });
 
 $area.addEventListener("mousemove", function (e) {
