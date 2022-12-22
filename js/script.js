@@ -1,5 +1,6 @@
 const $area = document.querySelector(".area");
 const $box = document.querySelector(".box");
+const $bottom = document.querySelector(".btn");
 
 const $areaWidth = window.innerWidth;
 //console.log(Width);
@@ -10,6 +11,7 @@ const $boxWidth = $box.offsetWidth;
 const $boxHeight = $box.offsetHeight;
 //console.log($boxWidth);
 
+let activeBox = "";
 let action = false;
 let startCoords = {
 	x: 0,
@@ -26,20 +28,31 @@ let distance = {
 };
 
 function move(coords) {
-	$box.style.top = coords.y + "px";
-	$box.style.left = coords.x + "px";
+	activeBox.style.top = coords.y + "px";
+	activeBox.style.left = coords.x + "px";
+	//console.log(activeBox);
 }
 
-$box.addEventListener("mousedown", function (e) {
+$area.addEventListener("mousedown", function (e) {
 	//console.log(e);
-	action = true;
-	startCoords.x = e.pageX;
-	startCoords.y = e.pageY;
+	if (e.target.classList.value == "box") {
+		activeBox = e.target;
+		//console.log(activeBox);
+		action = true;
+		startCoords.x = e.pageX;
+		startCoords.y = e.pageY;
+		saveCoords.y = e.target.getBoundingClientRect().top;
+		saveCoords.x = e.target.getBoundingClientRect().left;
+
+		//console.log(e.target.getBoundingClientRect().top);
+	}
+
 	//console.log(33);
 });
 
 $area.addEventListener("mouseup", function (e) {
 	//console.log(2);
+
 	action = false;
 	saveCoords.y = distance.y;
 	saveCoords.x = distance.x;
@@ -47,6 +60,7 @@ $area.addEventListener("mouseup", function (e) {
 
 $area.addEventListener("mousemove", function (e) {
 	//console.log(3);
+
 	if (action) {
 		distance.y = saveCoords.y + e.pageY - startCoords.y;
 		distance.x = saveCoords.x + e.pageX - startCoords.x;
@@ -77,4 +91,8 @@ $area.addEventListener("mousemove", function (e) {
 			move(distance);
 		}
 	}
+});
+
+$bottom.addEventListener("click", function () {
+	$area.insertAdjacentHTML("beforeend", '<div class="box"></div>');
 });
