@@ -16,8 +16,17 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-image: url(../img/box-img.png);
 }
 .btn {
+  position: absolute;
+  bottom: 5px;
+  left: 50px;
   text-align: center;
   padding: 5px;
   margin: 10px;
