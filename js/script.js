@@ -1,8 +1,5 @@
 const $area = document.querySelector(".area");
 const $bottom = document.querySelector(".btn");
-const $textarea = document.querySelector(".content");
-const $header = document.querySelector(".header");
-
 const $areaWidth = window.innerWidth;
 //console.log(Width);
 const $areaHeight = $area.offsetHeight;
