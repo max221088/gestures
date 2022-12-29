@@ -1,5 +1,7 @@
 const $area = document.querySelector(".area");
 const $bottom = document.querySelector(".btn");
+const $textarea = document.querySelector(".content");
+const $header = document.querySelector(".header");
 
 const $areaWidth = window.innerWidth;
 //console.log(Width);
@@ -53,23 +55,26 @@ function boxGenerator(list) {
 			'px;" data-index="' +
 			i +
 			'">' +
-			(i + 1) +
+			// (i + 1) +
+			'<input type="text" placeholder="Заголовок" class="header" />' +
+			'<textarea class="content" placeholder="Текст заметки"></textarea>' +
 			"</div>";
 	}
 	$area.innerHTML = template;
 }
 
 $area.addEventListener("mousedown", function (e) {
-	//console.log(e);
-	if (e.target.classList.value == "box") {
-		activeBox = e.target;
-		activeBoxIndex = e.target.getAttribute("data-index");
-		//console.log(activeBox);
+	//console.log(e.path[1].classList.contains("box"));
+	if (e.path[1].classList.contains("box")) {
+		activeBox = e.path[1];
+		activeBoxIndex = e.path[1].getAttribute("data-index");
+		console.log(activeBoxIndex);
 		action = true;
 		startCoords.x = e.pageX;
 		startCoords.y = e.pageY;
 		saveCoords.y = boxes[activeBoxIndex].y;
 		saveCoords.x = boxes[activeBoxIndex].x;
+		console.log(saveCoords);
 
 		//console.log(e.target.getBoundingClientRect().top);
 	}
@@ -127,3 +132,5 @@ $bottom.addEventListener("click", function () {
 	//console.log(boxes);
 	boxGenerator(boxes);
 });
+
+//$textarea.oninput =
