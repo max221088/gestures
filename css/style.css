@@ -15,8 +15,8 @@ input:focus {
 }
 .area .box {
   background-color: #000;
-  min-width: 200px;
-  min-height: 200px;
+  width: 200px;
+  height: 200px;
   position: absolute;
   top: 0;
   left: 0;
@@ -30,12 +30,14 @@ input:focus {
   min-height: 170px;
   background-color: #e5e77a;
   border: 0px solid #fff;
+  cursor: pointer;
 }
 .area .box .header {
   width: 200px;
   height: 25px;
   border: 0px solid #fff;
   background-color: #99e77a;
+  cursor: pointer;
 }
 .btn {
   position: absolute;

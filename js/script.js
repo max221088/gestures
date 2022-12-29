@@ -7,11 +7,11 @@ const $areaWidth = window.innerWidth;
 //console.log(Width);
 const $areaHeight = $area.offsetHeight;
 //console.log(Height);
-// const $boxWidth = $box.offsetWidth;
-const $boxWidth = 100;
+//const $boxWidth = $box.offsetWidth;
+const $boxWidth = 200;
 //console.log($boxWidth);
 //const $boxHeight = $box.offsetHeight;
-const $boxHeight = 100;
+const $boxHeight = 200;
 //console.log($boxWidth);
 
 let activeBox = null;
@@ -56,11 +56,29 @@ function boxGenerator(list) {
 			i +
 			'">' +
 			// (i + 1) +
-			'<input type="text" placeholder="Заголовок" class="header" />' +
-			'<textarea class="content" placeholder="Текст заметки"></textarea>' +
+			'<input type="text" placeholder="Заголовок" class="header" value="' +
+			list[i].head +
+			'"/>' +
+			'<textarea class="content" placeholder="Текст заметки">' +
+			list[i].cont +
+			"</textarea>" +
 			"</div>";
 	}
 	$area.innerHTML = template;
+	document.querySelectorAll(".header").forEach(function (el) {
+		el.addEventListener("input", function () {
+			boxes[activeBoxIndex].head = this.value;
+			console.log(boxes);
+			localStorage.setItem("coords", JSON.stringify(boxes));
+		});
+	});
+	document.querySelectorAll(".content").forEach(function (el) {
+		el.addEventListener("input", function () {
+			boxes[activeBoxIndex].cont = this.value;
+			console.log(boxes);
+			localStorage.setItem("coords", JSON.stringify(boxes));
+		});
+	});
 }
 
 $area.addEventListener("mousedown", function (e) {
@@ -72,11 +90,11 @@ $area.addEventListener("mousedown", function (e) {
 		action = true;
 		startCoords.x = e.pageX;
 		startCoords.y = e.pageY;
-		saveCoords.y = boxes[activeBoxIndex].y;
-		saveCoords.x = boxes[activeBoxIndex].x;
+		//saveCoords.y = boxes[activeBoxIndex].y;
+		//saveCoords.x = boxes[activeBoxIndex].x;
+		saveCoords.y = activeBox.getBoundingClientRect().top;
+		saveCoords.x = activeBox.getBoundingClientRect().left;
 		console.log(saveCoords);
-
-		//console.log(e.target.getBoundingClientRect().top);
 	}
 
 	//console.log(33);
@@ -128,9 +146,9 @@ $bottom.addEventListener("click", function () {
 	boxes.push({
 		x: 0,
 		y: 0,
+		head: "",
+		cont: "",
 	});
 	//console.log(boxes);
 	boxGenerator(boxes);
 });
-
-//$textarea.oninput =
