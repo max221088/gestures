@@ -14,6 +14,7 @@ const $boxHeight = 200;
 let activeBox = null;
 let activeBoxIndex = null;
 let action = false;
+let save = false;
 let startCoords = {
 	x: 0,
 	y: 0,
@@ -38,6 +39,7 @@ if (localStorage.getItem("coords")) {
 function move(coords) {
 	activeBox.style.top = coords.y + "px";
 	activeBox.style.left = coords.x + "px";
+	save = true;
 	//console.log(activeBox);
 }
 
@@ -87,10 +89,10 @@ $area.addEventListener("mousedown", function (e) {
 		action = true;
 		startCoords.x = e.pageX;
 		startCoords.y = e.pageY;
-		//saveCoords.y = boxes[activeBoxIndex].y;
-		//saveCoords.x = boxes[activeBoxIndex].x;
-		saveCoords.y = activeBox.getBoundingClientRect().top;
-		saveCoords.x = activeBox.getBoundingClientRect().left;
+		saveCoords.y = boxes[activeBoxIndex].y;
+		saveCoords.x = boxes[activeBoxIndex].x;
+		//saveCoords.y = activeBox.getBoundingClientRect().top;
+		//saveCoords.x = activeBox.getBoundingClientRect().left;
 		console.log(saveCoords);
 	}
 
@@ -101,9 +103,12 @@ $area.addEventListener("mouseup", function (e) {
 	//console.log(2);
 
 	action = false;
-	boxes[activeBoxIndex].x = distance.x;
-	boxes[activeBoxIndex].y = distance.y;
-	localStorage.setItem("coords", JSON.stringify(boxes));
+	if (save) {
+		boxes[activeBoxIndex].x = distance.x;
+		boxes[activeBoxIndex].y = distance.y;
+		localStorage.setItem("coords", JSON.stringify(boxes));
+		save = false;
+	}
 });
 
 $area.addEventListener("mousemove", function (e) {
