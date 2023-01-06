@@ -1,6 +1,7 @@
 const $area = document.querySelector(".area");
 const $bottom = document.querySelector(".btn");
 const $areaWidth = window.innerWidth;
+const $inputSearch = document.querySelector(".search-notes");
 //console.log(Width);
 const $areaHeight = $area.offsetHeight;
 //console.log(Height);
@@ -93,7 +94,7 @@ $area.addEventListener("mousedown", function (e) {
 		saveCoords.x = boxes[activeBoxIndex].x;
 		//saveCoords.y = activeBox.getBoundingClientRect().top;
 		//saveCoords.x = activeBox.getBoundingClientRect().left;
-		console.log(saveCoords);
+		//console.log(saveCoords);
 	}
 
 	//console.log(33);
@@ -101,7 +102,6 @@ $area.addEventListener("mousedown", function (e) {
 
 $area.addEventListener("mouseup", function (e) {
 	//console.log(2);
-
 	action = false;
 	if (save) {
 		boxes[activeBoxIndex].x = distance.x;
@@ -153,4 +153,23 @@ $bottom.addEventListener("click", function () {
 	});
 	//console.log(boxes);
 	boxGenerator(boxes);
+});
+
+//console.log($inputSearch);
+$inputSearch.addEventListener("input", function () {
+	let query = this.value.toLowerCase();
+	filtNotes = boxes.filter(function (el) {
+		if (el.head.toLowerCase().indexOf(query) != -1) {
+			return true;
+		} else {
+			//return false;
+			if (el.cont.toLowerCase().indexOf(query) != -1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	});
+	boxGenerator(filtNotes);
+	//console.log(filtNotes);
 });
