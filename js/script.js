@@ -1,16 +1,9 @@
-const $area = document.querySelector(".area");
-const $bottom = document.querySelector(".btn");
 const $areaWidth = window.innerWidth;
-const $inputSearch = document.querySelector(".search-notes");
-//console.log(Width);
-const $areaHeight = $area.offsetHeight;
-//console.log(Height);
+const $areaHeight = $(".area").outerHeight();
 //const $boxWidth = $box.offsetWidth;
 const $boxWidth = 200;
-//console.log($boxWidth);
 //const $boxHeight = $box.offsetHeight;
 const $boxHeight = 200;
-//console.log($boxWidth);
 
 let activeBox = null;
 let activeBoxIndex = null;
@@ -64,43 +57,35 @@ function boxGenerator(list) {
 			"</textarea>" +
 			"</div>";
 	}
-	$area.innerHTML = template;
-	document.querySelectorAll(".header").forEach(function (el) {
-		el.addEventListener("input", function () {
-			boxes[activeBoxIndex].head = this.value;
-			console.log(boxes);
-			localStorage.setItem("coords", JSON.stringify(boxes));
-		});
+	$(".area").html(template);
+	$(".header").keyup(function () {
+		boxes[activeBoxIndex].head = $(this).val();
+		//console.log(boxes[activeBoxIndex].head);
+		localStorage.setItem("coords", JSON.stringify(boxes));
 	});
-	document.querySelectorAll(".content").forEach(function (el) {
-		el.addEventListener("input", function () {
-			boxes[activeBoxIndex].cont = this.value;
-			console.log(boxes);
-			localStorage.setItem("coords", JSON.stringify(boxes));
-		});
+	$(".content").keyup(function () {
+		boxes[activeBoxIndex].cont = $(this).val();
+		//console.log(boxes[activeBoxIndex].head);
+		localStorage.setItem("coords", JSON.stringify(boxes));
 	});
 }
 
-$area.addEventListener("mousedown", function (e) {
-	//console.log(e.path[1].classList.contains("box"));
-	if (e.path[1].classList.contains("box")) {
-		activeBox = e.path[1];
-		activeBoxIndex = e.path[1].getAttribute("data-index");
-		console.log(activeBoxIndex);
+$(".area").mousedown(function (event) {
+	//console.log(event);
+	if (event.target.offsetParent.classList.contains("box")) {
+		activeBox = event.target.offsetParent;
+		//console.log(activeBox);
+		activeBoxIndex = activeBox.getAttribute("data-index");
+		//console.log(activeBoxIndex);
 		action = true;
-		startCoords.x = e.pageX;
-		startCoords.y = e.pageY;
+		startCoords.x = event.pageX;
+		startCoords.y = event.pageY;
 		saveCoords.y = boxes[activeBoxIndex].y;
 		saveCoords.x = boxes[activeBoxIndex].x;
-		//saveCoords.y = activeBox.getBoundingClientRect().top;
-		//saveCoords.x = activeBox.getBoundingClientRect().left;
-		//console.log(saveCoords);
 	}
-
-	//console.log(33);
 });
 
-$area.addEventListener("mouseup", function (e) {
+$(".area").mouseup(function () {
 	//console.log(2);
 	action = false;
 	if (save) {
@@ -111,11 +96,10 @@ $area.addEventListener("mouseup", function (e) {
 	}
 });
 
-$area.addEventListener("mousemove", function (e) {
-	//console.log(3);
+$(".area").mousemove(function (event) {
 	if (action) {
-		distance.y = saveCoords.y + e.pageY - startCoords.y;
-		distance.x = saveCoords.x + e.pageX - startCoords.x;
+		distance.y = saveCoords.y + event.pageY - startCoords.y;
+		distance.x = saveCoords.x + event.pageX - startCoords.x;
 		if (distance.x > $areaWidth - $boxWidth) {
 			distance.x = $areaWidth - $boxWidth;
 			move(distance);
@@ -144,7 +128,8 @@ $area.addEventListener("mousemove", function (e) {
 		}
 	}
 });
-$bottom.addEventListener("click", function () {
+
+$(".btn").click(function () {
 	boxes.push({
 		x: 0,
 		y: 0,
@@ -155,9 +140,9 @@ $bottom.addEventListener("click", function () {
 	boxGenerator(boxes);
 });
 
-//console.log($inputSearch);
-$inputSearch.addEventListener("input", function () {
-	let query = this.value.toLowerCase();
+$(".search-notes").keyup(function () {
+	let query = $(".search-notes").val().toLowerCase();
+	//console.log(query);
 	filtNotes = boxes.filter(function (el) {
 		if (el.head.toLowerCase().indexOf(query) != -1) {
 			return true;
