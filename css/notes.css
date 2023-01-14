@@ -1,0 +1,50 @@
+.notes .area {
+  background-color: #9b9999;
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+.notes .area .box {
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.notes .area .box .content {
+  min-width: 200px;
+  min-height: 170px;
+  border: 0px solid #fff;
+  cursor: pointer;
+}
+.notes .area .box .header {
+  width: 200px;
+  height: 25px;
+  border: 0px solid #fff;
+  cursor: pointer;
+}
+.notes .btn {
+  position: absolute;
+  bottom: 5px;
+  left: 50px;
+  text-align: center;
+  padding: 5px;
+  margin: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 7px;
+}
+.notes .search {
+  position: absolute;
+  bottom: 20px;
+  left: 200px;
+}
+.notes .search .search-notes {
+  width: 200px;
+}
