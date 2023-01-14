@@ -94,7 +94,7 @@ $.fn.notes = function (options) {
 	if (params.search) {
 		let templateSearch =
 			"<div class=search> <input type=text class=search-notes " +
-			"placeholder=Поиск по заметкам/></div>";
+			"placeholder='Поиск по заметкам'/></div>";
 		$notes.append(templateSearch);
 	}
 	$(".btn").click(function () {
